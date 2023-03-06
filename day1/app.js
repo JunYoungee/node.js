@@ -12,7 +12,7 @@ app.use('/contents', ()=>{
 });
 
 mongoose.
-    connect('mongodb+srv://wnsdud96330:ajtwodl123@cluster0.uznhppl.mongodb.net/?retryWrites=true&w=majority', {dbName : "auth"})
+    connect('mongodb+srv://wnsdud96330:<password>@cluster0.uznhppl.mongodb.net/?retryWrites=true&w=majority', {dbName : "auth"})
     .then(()=>{
         console.log('DB에 연결되었습니다.')
         app.listen(8080);
