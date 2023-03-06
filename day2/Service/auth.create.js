@@ -1,6 +1,15 @@
 const User = require('../Schema/User')
+const bcrypt = require('bcrypt');
+const { validationResult } = require('express-validator');
 
 module.exports.create= async (req,res,next)=>{
+    const validation = validationResult(req)
+    if(!validation.isEmpty()){
+        return res.status(400).json({
+            message: "입력한 값이 올바르지 않습니다.",
+            error : validation.errors
+        })
+    }
     const { id, pw, email } = req.body;
 
 
@@ -12,9 +21,12 @@ module.exports.create= async (req,res,next)=>{
             })
         }
 
+        const hashed = await bcrypt.hash(pw, 10);
+        console.log(hashed);
+
         const newUser = new User({
             id,
-            pw,
+            pw: hashed,
             email
         })
         const saveResult = await newUser.save();
